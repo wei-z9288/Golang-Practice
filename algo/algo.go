@@ -1,4 +1,4 @@
-package algorithm
+package algo
 
 import (
 	"crypto/md5"

@@ -97,29 +97,29 @@ Flags:
 
 
 ### linecount
-- [] verify file
-- [] read file
-- [] count lines in file
+- [ ] verify file
+- [ ] read file
+- [ ] count lines in file
 
 ### file verification
-- [] non-existent
-- [] is a dir
-- [] is binary
+- [ ] non-existent
+- [ ] is a dir
+- [ ] is binary
 
 ### checksum
-- [] implement 3 algorithm with different flags
+- [ ] implement 3 algorithm with different flags
 
 ### version
-- [] get from build
+- [ ] get from build
 
 ### help
-- [] subcommands
+- [ ] subcommands
 
 ### Integrate withCI
-- [] Unit tests
-- [] Integrate with CI
-- [] Build
-- [] Release
+- [ ] Unit tests
+- [ ] Integrate with CI
+- [ ] Build
+- [ ] Release
 
 ## 3rd-party libraries I used
 - [cobra](https://github.com/spf13/cobra) v1.7.0

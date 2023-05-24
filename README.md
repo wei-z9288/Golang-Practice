@@ -123,5 +123,7 @@ Flags:
 
 ## 3rd-party libraries I used
 - [cobra](https://github.com/spf13/cobra) v1.7.0
+- [mimetype](https://github.com/gabriel-vasile/mimetype) v1.4.2
+- [testify](https://github.com/stretchr/testify) v1.8.3
 
 

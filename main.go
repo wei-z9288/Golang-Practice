@@ -7,6 +7,7 @@ import (
 	cli "fops/cli"
 	filesys "fops/filesys"
 	"io/ioutil"
+	"os"
 	"path"
 )
 
@@ -55,5 +56,9 @@ func main() {
 	message, err := ioutil.ReadAll(buffer)
 	fmt.Println(message)
 	fmt.Println(err)
-
+	//cmd checksum
+	contents, _ := os.ReadFile("file/myfile.txt")
+	fmt.Printf("myfile.txt md5 Checksum: %s\n", cli.GetChecksum(contents, "md5"))
+	fmt.Printf("myfile.txt sha1 Checksum: %s\n", cli.GetChecksum(contents, "sha1"))
+	fmt.Printf("myfile.txt sha256 Checksum: %s\n", cli.GetChecksum(contents, "sha256"))
 }

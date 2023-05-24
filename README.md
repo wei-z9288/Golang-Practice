@@ -97,26 +97,26 @@ Flags:
 
 
 ### linecount
-- [ ] verify file
-- [ ] read file
-- [ ] count lines in file
+- [x] verify file
+- [x] read file
+- [x] count lines in file
 
 ### file verification
-- [ ] non-existent
-- [ ] is a dir
-- [ ] is binary
+- [x] non-existent
+- [x] is a dir
+- [x] is binary
 
 ### checksum
-- [ ] implement 3 algorithm with different flags
+- [x] implement 3 algorithm with different flags
 
 ### version
-- [ ] get from build
+- [x] get from build
 
 ### help
-- [ ] subcommands
+- [x] subcommands
 
 ### Integrate withCI
-- [ ] Unit tests
+- [x] Unit tests
 - [ ] Integrate with CI
 - [ ] Build
 - [ ] Release

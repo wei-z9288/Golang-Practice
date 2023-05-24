@@ -1,11 +1,20 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	algo "fops/algo"
+	cli "fops/cli"
 	filesys "fops/filesys"
+	"io/ioutil"
+	"path"
 )
 
+var basepath string
+
+func absPath(filepath string) string {
+	return path.Join(basepath, filepath)
+}
 func main() {
 	//algo test
 	var a algo.Algorithm = algo.GetMD5()
@@ -36,24 +45,15 @@ func main() {
 	}
 
 	//cmd version test
-	// cli.SetVersion("1.0.0")
-	// cmd := cli.VersionCmd()
-	// buffer := bytes.NewBufferString("")
-	// cmd.SetOut(buffer)
-	// cmd.SetArgs([]string{"-v"})
-	// cmd.Execute()
-	// output := buffer.String()
-	// fmt.Println(output)
-	// cli.SetVersion("1.0.0") // 设置 Version 变量
-	// v := cli.GetVersion()
-	// fmt.Println(v)
 
-	// cmd := cli.VersionCmd()
-	// cmd.SetArgs([]string{"version"})    // 获取版本命令
-	// buffer := bytes.NewBufferString("") // 创建一个新的 Buffer
-	// cmd.SetOut(buffer)                  // 将 Buffer 设置为命令的输出
-	// cmd.Execute()                       // 执行命令
-	// output := buffer.String()           // 从 Buffer 中获取命令的输出
-	// fmt.Println(output)                 // 打印输出
+	//cmd line count test
+	cmd := cli.LinecountCmd()
+	buffer := bytes.NewBufferString("")
+	cmd.SetOut(buffer)
+	cmd.SetArgs([]string{"--file", absPath("file/myfile.txt")})
+	cmd.Execute()
+	message, err := ioutil.ReadAll(buffer)
+	fmt.Println(message)
+	fmt.Println(err)
 
 }

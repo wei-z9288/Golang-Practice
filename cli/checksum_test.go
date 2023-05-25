@@ -3,7 +3,8 @@ package cli
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"io"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -21,7 +22,7 @@ func TestGetChecksum(t *testing.T) {
 	}
 
 	for _, testcase := range cases {
-		contents, _ := ioutil.ReadFile(testcase.filepath)
+		contents, _ := os.ReadFile(testcase.filepath)
 		sum := GetChecksum(contents, testcase.algorithm)
 		assert.Equal(t, sum, testcase.expects, fmt.Sprintf("Failed test with %v", testcase.filepath))
 	}
@@ -34,7 +35,7 @@ func TestChecksumRun(t *testing.T) {
 	cmd.SetOut(b)
 	cmd.SetArgs([]string{"--file", absPath("assets/myfile.txt"), "--md5"})
 	cmd.Execute()
-	_, err := ioutil.ReadAll(b)
+	_, err := io.ReadAll(b)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -3,7 +3,7 @@ package cli
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"path"
 	"runtime"
@@ -47,7 +47,7 @@ func TestLinecountRun(t *testing.T) {
 	cmd.SetOut(b)
 	cmd.SetArgs([]string{"--file", absPath("file/myfile.txt")})
 	cmd.Execute()
-	_, err := ioutil.ReadAll(b)
+	_, err := io.ReadAll(b)
 	if err != nil {
 		t.Fatal(err)
 	}

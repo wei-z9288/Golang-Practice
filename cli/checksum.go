@@ -36,7 +36,7 @@ func GetChecksum(value []byte, hashFn string) string {
 }
 
 func ChecksumRun(cmd *cobra.Command, args []string) error {
-	//進行檔案確認
+	//Verify the file
 	filename, _ := cmd.Flags().GetString("file")
 	fs := filesys.File(filename).CheckFile()
 
@@ -46,7 +46,7 @@ func ChecksumRun(cmd *cobra.Command, args []string) error {
 
 		algorithmFlag := ""
 		contents, _ := os.ReadFile(filename)
-		//檢查是下哪個hash flag
+		//Check which hash flag is placed
 		for _, algorithm := range hashFunctions {
 			match, err := cmd.Flags().GetBool(algorithm.GetType())
 			if err != nil {

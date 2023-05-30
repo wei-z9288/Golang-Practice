@@ -9,7 +9,7 @@ import (
 var Version string
 var versionCmd *cobra.Command
 
-// 將 versioncmd 命令添加到了 rootcmd
+// Added the versioncmd command to the rootcmd
 func init() {
 	VersionCmd().Flags().StringP("version", "v", "", "File's version")
 	rootcmd.AddCommand(VersionCmd())
@@ -23,8 +23,9 @@ func GetVersion() string {
 	return Version
 }
 
-//Run (1)接收正在執行的指令的指標
-//    (2)args []string: 命令行中輸入的參數。這個切片包含了除了命令名稱以外的所有參數。
+//Run (1)Receive pointer for the command being executed
+//    (2)args []string: Parameters input in the command line.
+//       This slice contains all parameters except for the command name.
 
 func VersionCmd() *cobra.Command {
 	if versionCmd == nil {

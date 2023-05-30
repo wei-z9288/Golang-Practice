@@ -7,13 +7,13 @@ import (
 	"fmt"
 )
 
-// 定義介面的函數
+// Define the function of the interface
 type Algorithm interface {
 	GetType() string
 	GetChecksum(data []byte) string
 }
 
-// 定義三種物件的資料結構
+// Define the data structure of the three types of objects
 type MD5 struct {
 	Hashtype string
 }
@@ -26,7 +26,7 @@ type SHA256 struct {
 	Hashtype string
 }
 
-// 利用函數來取得物件
+// Using functions to get objects
 func GetMD5() MD5 {
 	return MD5{"md5"}
 }
@@ -39,7 +39,7 @@ func GetSHA256() SHA256 {
 	return SHA256{"sha256"}
 }
 
-// 不同物件對應不同介面實作
+// Different objects correspond to different interface implementation
 func (MD5) GetType() string {
 	return "md5"
 }

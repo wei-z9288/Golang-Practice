@@ -28,7 +28,7 @@ func count(filename string) (int, error) {
 
 func LinecountRun(cmd *cobra.Command, args []string) error {
 	filename, _ := cmd.Flags().GetString("file")
-	//進行一系列檔案確認
+	//Conduct a series of file checks
 	fs := filesys.File(filename).CheckFile().CheckNotBinary()
 
 	if fs.Err != nil {

@@ -7,10 +7,10 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 )
 
-// 建立儲存檔案資訊的資料結構
-// Status     是否符合格式
-// Err        錯誤訊息
-// Filename   檔名
+// Create a data structure for storing file information
+// Status     Whether it fits the format
+// Err        Error message
+// Filename   File Name
 type FileStatus struct {
 	Status   bool
 	Err      error
@@ -21,9 +21,10 @@ func File(filename string) FileStatus {
 	return FileStatus{true, nil, filename}
 }
 
-// 每一個方法都會返回相同的物件，所以可以在該物件上連續調用多個方法。
+// Each method returns the same object, so you can call multiple methods on that object in series.
 // File(filename).Exists().CheckNotDir().CheckNotBinary()
-// 先判斷是否有該檔案，在判斷是否是dir，在判斷是否是二進位檔案，中途有錯即返回前一個錯誤資訊
+// First determine whether there is the file, then determine whether it is a dir, then determine whether it is a binary file,
+// if there is an error in the process that returns the previous error message
 func (f FileStatus) CheckFile() FileStatus {
 	return f.Exists().CheckNotDir()
 }
@@ -35,7 +36,7 @@ func (f FileStatus) Exists() FileStatus {
 	}
 
 	_, err := os.Stat(f.Filename)
-	// 如果嘗試打開的文件不存在，os.IsNotExist(err)將返回 true
+	// IsNotExist(err) will return true if the file you are trying to open does not exist
 	if os.IsNotExist(err) {
 		f.Status, f.Err = false, fmt.Errorf("error: No such file '%v'", f.Filename)
 	}
@@ -65,7 +66,7 @@ func (f FileStatus) CheckNotBinary() FileStatus {
 	}
 
 	mime, _ := mimetype.DetectFile(f.Filename)
-	// Mach-O 是 macOS 和 iOS 系统上使用的二進文件的类型
+	// Mach-O is the type of binary file used on macOS and iOS systems
 	if mime.Is("application/x-mach-binary") || mime.Is("application/octet-stream") {
 		f.Status, f.Err = false, fmt.Errorf("error: Cannot do linecount for binary file '%v'", f.Filename)
 	}

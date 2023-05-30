@@ -6,8 +6,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// Use : cli 的根命令。應用程序的名稱
-// rootcmd 為global var
+// Use : The root command of cli. Name of the application
+// rootcmd is global var
 var rootcmd = &cobra.Command{
 	Use:   "fops",
 	Short: "Simple CLI for file checking",

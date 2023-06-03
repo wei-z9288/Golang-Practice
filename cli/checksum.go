@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var hashFunctions map[string]algo.Algorithm
+var hashFunctions map[string]string
 var checksum *cobra.Command
 
 func init() {
@@ -22,17 +22,17 @@ func init() {
 
 	ChecksumCmd().MarkFlagRequired("file")
 
-	hashFunctions = map[string]algo.Algorithm{
-		"md5":    algo.GetMD5(),
-		"sha1":   algo.GetSHA1(),
-		"sha256": algo.GetSHA256(),
+	hashFunctions = map[string]string{
+		"md5":    "md5",
+		"sha1":   "sha1",
+		"sha256": "sha256",
 	}
 
 	rootcmd.AddCommand(ChecksumCmd())
 }
 
 func GetChecksum(value []byte, hashFn string) string {
-	return hashFunctions[hashFn].GetChecksum(value)
+	return algo.GetChecksum(value, hashFn)
 }
 
 func ChecksumRun(cmd *cobra.Command, args []string) error {
@@ -47,13 +47,13 @@ func ChecksumRun(cmd *cobra.Command, args []string) error {
 		algorithmFlag := ""
 		contents, _ := os.ReadFile(filename)
 		//Check which hash flag is placed
-		for _, algorithm := range hashFunctions {
-			match, err := cmd.Flags().GetBool(algorithm.GetType())
+		for _, hashname := range hashFunctions {
+			match, err := cmd.Flags().GetBool(hashname)
 			if err != nil {
 				return err
 			}
 			if match {
-				algorithmFlag = algorithm.GetType()
+				algorithmFlag = hashname
 			}
 		}
 
@@ -73,7 +73,7 @@ func ChecksumCmd() *cobra.Command {
 			Use:   "checksum",
 			Short: "Generate checksum of a file",
 			Long: `Checksum retrieves the cryptographic hash of a file.
-		A valid text file and an algorithm flag (MD5, SHA1, SHA256) are needed.`,
+        A valid text file and an algorithm flag (MD5, SHA1, SHA256) are needed.`,
 			RunE: ChecksumRun,
 		}
 	}

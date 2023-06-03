@@ -11,12 +11,12 @@ import (
 
 var checksum *cobra.Command
 
-// 定义全局变量用于存储flag的值
+// Define global variables to store the value of flags
 var md5Flag, sha1Flag, sha256Flag bool
 
 func init() {
 
-	//使用VarP函数将flag值绑定到变量
+	// Use the StringVarP to bind flag values to variables
 	ChecksumCmd().Flags().StringVarP(&file, "file", "f", "", "File to operate on")
 	ChecksumCmd().Flags().BoolVar(&md5Flag, "md5", false, "checksum using md5")
 	ChecksumCmd().Flags().BoolVar(&sha1Flag, "sha1", false, "checksum using sha1")

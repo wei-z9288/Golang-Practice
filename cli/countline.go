@@ -11,8 +11,13 @@ import (
 
 var linecount *cobra.Command
 
+// Define global variables to store the value of flags
+var file string
+
 func init() {
-	LinecountCmd().Flags().StringP("file", "f", "", "File to operate on")
+	// Use the StringVarP to bind flag values to variables
+	LinecountCmd().Flags().StringVarP(&file, "file", "f", "", "File to operate on")
+
 	LinecountCmd().MarkFlagRequired("file")
 	rootcmd.AddCommand(LinecountCmd())
 }
@@ -27,9 +32,9 @@ func count(filename string) (int, error) {
 }
 
 func LinecountRun(cmd *cobra.Command, args []string) error {
-	filename, _ := cmd.Flags().GetString("file")
+
 	//Conduct a series of file checks
-	fs := filesys.File(filename).CheckFile().CheckNotBinary()
+	fs := filesys.File(file).CheckFile().CheckNotBinary()
 
 	if fs.Err != nil {
 		fmt.Println(fs.Err)

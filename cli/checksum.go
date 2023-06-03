@@ -9,24 +9,20 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var hashFunctions map[string]string
 var checksum *cobra.Command
+
+// 定义全局变量用于存储flag的值
+var md5Flag, sha1Flag, sha256Flag bool
 
 func init() {
 
-	ChecksumCmd().Flags().StringP("file", "f", "", "File to operate on")
-
-	ChecksumCmd().Flags().Bool("md5", false, "checksum using md5")
-	ChecksumCmd().Flags().Bool("sha1", false, "checksum using sha1")
-	ChecksumCmd().Flags().Bool("sha256", false, "checksum using sha256")
+	//使用VarP函数将flag值绑定到变量
+	ChecksumCmd().Flags().StringVarP(&file, "file", "f", "", "File to operate on")
+	ChecksumCmd().Flags().BoolVar(&md5Flag, "md5", false, "checksum using md5")
+	ChecksumCmd().Flags().BoolVar(&sha1Flag, "sha1", false, "checksum using sha1")
+	ChecksumCmd().Flags().BoolVar(&sha256Flag, "sha256", false, "checksum using sha256")
 
 	ChecksumCmd().MarkFlagRequired("file")
-
-	hashFunctions = map[string]string{
-		"md5":    "md5",
-		"sha1":   "sha1",
-		"sha256": "sha256",
-	}
 
 	rootcmd.AddCommand(ChecksumCmd())
 }
@@ -37,24 +33,19 @@ func GetChecksum(value []byte, hashFn string) string {
 
 func ChecksumRun(cmd *cobra.Command, args []string) error {
 	//Verify the file
-	filename, _ := cmd.Flags().GetString("file")
-	fs := filesys.File(filename).CheckFile()
+	fs := filesys.File(file).CheckFile()
 
 	if fs.Err != nil {
 		return fs.Err
 	} else {
-
+		contents, _ := os.ReadFile(file)
 		algorithmFlag := ""
-		contents, _ := os.ReadFile(filename)
-		//Check which hash flag is placed
-		for _, hashname := range hashFunctions {
-			match, err := cmd.Flags().GetBool(hashname)
-			if err != nil {
-				return err
-			}
-			if match {
-				algorithmFlag = hashname
-			}
+		if md5Flag {
+			algorithmFlag = "md5"
+		} else if sha1Flag {
+			algorithmFlag = "sha1"
+		} else if sha256Flag {
+			algorithmFlag = "sha256"
 		}
 
 		if algorithmFlag == "" {
@@ -73,7 +64,7 @@ func ChecksumCmd() *cobra.Command {
 			Use:   "checksum",
 			Short: "Generate checksum of a file",
 			Long: `Checksum retrieves the cryptographic hash of a file.
-        A valid text file and an algorithm flag (MD5, SHA1, SHA256) are needed.`,
+		A valid text file and an algorithm flag (MD5, SHA1, SHA256) are needed.`,
 			RunE: ChecksumRun,
 		}
 	}

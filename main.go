@@ -18,14 +18,11 @@ func absPath(filepath string) string {
 }
 func main() {
 	//algo test
-	var a algo.Algorithm = algo.GetMD5()
+	hashname1 := "sha1"
 	data := []byte("hello world")
-	fmt.Printf("Type: %s\n", a.GetType())
-	fmt.Printf("Checksum: %s\n", a.GetChecksum(data))
-
-	var b algo.Algorithm = algo.GetSHA1()
-	fmt.Printf("Type: %s\n", b.GetType())
-	fmt.Printf("Checksum: %s\n", b.GetChecksum(data))
+	fmt.Printf("Checksum: %s\n", algo.GetChecksum(data, hashname1))
+	hashname2 := "md5"
+	fmt.Printf("Checksum: %s\n", algo.GetChecksum(data, hashname2))
 	// file verification test
 	cases := []string{
 		"missing-file.txt",

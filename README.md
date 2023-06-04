@@ -3,7 +3,17 @@
 
 File Operations (Fops) CLI, a command written in Golang, can be used to count lines and verify files.
 ## How to build/run this project
-
+## Installation
+Download & Build:
+```bash
+git clone https://github.com/wei-z9288/Golang-Practice.git
+cd Golang-Practice
+./build.sh
+```
+Test:
+```bash
+./test.sh 
+```
 
 ## Commands
 
@@ -63,20 +73,23 @@ $ fops version
 fops v0.0.1
 
 $ fops help
-File Ops
+fops is a simple file check command that checks the number of lines in a file 
+        and executes a file checksum operation, it does not support binary files.
 
 Usage:
-  fops [flags]
-  fops [command]
+  fops [command]
 
-Available Commands:
-  linecount    Print line count of file
-  checksum     Print checksum of file
-  version      Show the version info
-  help         Help about commands
+Available Commands:
+  checksum    Generate checksum of a file
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  linecount   Count lines in a file
+  version     Show current version
 
 Flags:
-  -h, --help   help for fops
+  -h, --help   help for fops
+
+Use "fops [command] --help" for more information about a command.
 ```
 
 Show subcommand help
@@ -118,7 +131,7 @@ Flags:
 ### Integrate withCI
 - [x] Unit tests
 - [ ] Integrate with CI
-- [ ] Build
+- [x] Build
 - [ ] Release
 
 ## 3rd-party libraries I used
